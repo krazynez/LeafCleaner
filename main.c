@@ -16,7 +16,7 @@
 
 
 #define VERS    2
-#define REVS    0
+#define REVS    1
 
 
 PSP_MODULE_INFO("LeafCleaner", 0, VERS, REVS);
