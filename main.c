@@ -772,7 +772,7 @@ void analyze_91()
     err = ReadKey(5, buffer);
     if (!err)
         err = get_leaf_id(buffer);
-    if (err == 5)
+    if (err == 5 || (err & 0xFFFF) == 5)
         printf(" okay!\n");
     else
     {
@@ -790,9 +790,8 @@ void analyze_91()
     err = ReadKey(6, buffer);
     if (!err) {
         err = get_leaf_id(buffer);
-	    err &= 0xffff;
 	}
-    if (err == 6)
+    if (err == 6 || (err & 0xFFFF) == 6)
         printf(" okay!\n");
     else
     {
@@ -845,7 +844,7 @@ void analyze_91()
     if (!err) {
         err = get_leaf_id(buffer);
 	}
-    if (err == 0x43)
+    if (err == 0x43 || (err & 0xFFFF) == 0x43)
         printf(" okay!\n");
     else
     {
@@ -863,7 +862,7 @@ void analyze_91()
     err = ReadKey(0x45, buffer);
     if (!err)
         err = get_leaf_id(buffer);
-    if ((err & 0xFFFF) == 0x45)
+    if (err == 0x45 || (err & 0xFFFF) == 0x45)
         printf(" okay!\n");
     else
     {
@@ -881,7 +880,7 @@ void analyze_91()
     err = ReadKey(0x46, buffer);
     if (!err)
         err = get_leaf_id(buffer);
-    if ((err & 0xFFFF) == 0x46)
+    if (err == 0x46 || (err & 0xFFFF) == 0x46)
         printf(" okay!\n");
     if (err == 0)
         printf(" okay!\n");
@@ -899,7 +898,7 @@ void analyze_91()
     err = ReadKey(0x47, buffer);
     if (!err)
         err = get_leaf_id(buffer);
-    if (err == 0x47)
+    if (err == 0x47 || (err & 0xFFFF) == 0x47)
         printf(" okay!\n");
     else
     {
