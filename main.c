@@ -440,7 +440,9 @@ void new_leaf(int leaf, char *buffer, int model)
 
 int get_leaf_id(char *buffer)
 {
+#if DEBUG
 	printf("0x%08X\n", adler_32((unsigned char*)buffer, 512));
+#endif
     switch (adler_32((unsigned char*)buffer, 512))
     {
         case 0xFC220D06:
