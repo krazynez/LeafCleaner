@@ -401,7 +401,7 @@ void new_leaf(int leaf, char *buffer, int model)
 
         memset(buffer, 0, 512);
         buffer[2] = 0x01;
-	    printf("\n What model is your PSP? O = PSP-1000, X = PSP-1001, %c = PSP-1004/6\n", 0xc8);
+	    printf("\n What model is your PSP? O = PSP-X000, X = PSP-X001, %c = PSP-X004/6\n", 0xc8);
     	b = wait_pressK(PSP_CTRL_SQUARE|PSP_CTRL_CROSS|PSP_CTRL_CIRCLE);
     	wait_releaseK(PSP_CTRL_SQUARE|PSP_CTRL_CROSS|PSP_CTRL_CIRCLE);
 	    switch (b)
@@ -440,7 +440,7 @@ void new_leaf(int leaf, char *buffer, int model)
 
 int get_leaf_id(char *buffer)
 {
-	//printf("0x%08X\n", adler_32((unsigned char*)buffer, 512));
+	printf("0x%08X\n", adler_32((unsigned char*)buffer, 512));
     switch (adler_32((unsigned char*)buffer, 512))
     {
         case 0xFC220D06:
@@ -1016,6 +1016,19 @@ void analyze_91()
                 printf(" done!\n");
             }
         }
+		if (failed & 0x040)
+        {
+            printf("\n Your PSP appears to have a bad leaf 0x0045.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0045...");
+                new_leaf(0x45, buffer, 91);
+                WriteKey(0x45, buffer);
+                printf(" done!\n");
+            }
+        }
+
         if (failed & 0x080)
         {
             printf("\n Your PSP appears to have a bad leaf 0x0046.\n");
