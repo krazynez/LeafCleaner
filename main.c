@@ -288,6 +288,20 @@ void new_leaf(int leaf, char *buffer, int model)
         for (i = 0; i < 72; i+=2)
             buffer[reconstruct[i]]=reconstruct[i+1];
     }
+	else if (leaf == 4 && model == 90)
+    {
+        int i;
+        int reconstruct[56] = {
+			0,0x6E,1,0x79,2,0x72,3,0x42,4,0x01,8,0x3E,12,0x6F,13,0xE8,
+            14,0xAA,15,0xB3,16,0xD8,18,0x24,20,0x14,21,0x31,22,0x14,24,0x94,
+            26,0x48,28,0xD8,52,0x80,53,0x02,70,0x36,71,0x10,72,0xD2,73,0x0F,
+            74,0x20,75,0x1C,76,0x3C,77,0x05	
+        };
+        memset(buffer, 0, 512);
+        for (i = 0; i < 56; i+=2)
+            buffer[reconstruct[i]]=reconstruct[i+1];
+    }
+
     else if (leaf == 5)
     {
         int i;
@@ -323,7 +337,7 @@ void new_leaf(int leaf, char *buffer, int model)
         for (i = 0; i < 28; i+=2)
             buffer[reconstruct[i]]=reconstruct[i+1];
     }
-	else if (leaf == 6 && model == 91)
+	else if (leaf == 6 && (model == 91 || model == 90))
     {
         int i;
         int reconstruct[28] = {
@@ -351,6 +365,28 @@ void new_leaf(int leaf, char *buffer, int model)
             304,0x44,344,0xCC,345,0x1,348,0x1A,349,0x3,350,0x22,352,0x50,354,0x53,
             356,0x50,358,0x22,360,0x20,362,0x54,364,0x79,366,0x70,368,0x65,370,0x20,
             372,0x45
+		};
+        memset(buffer, 0, 512);
+        for (i = 0; i < 178; i+=2)
+            buffer[reconstruct[i]]=reconstruct[i+1];
+	}
+	else if(leaf == 0x41 && model == 90)
+	{
+		int i;
+		int reconstruct[178] = {
+			0,0x4C,1,0x05,4,0x0A,5,0x03,6,0x53,8,0x6F,10,0x6E,12,0x79,
+            68,0x05,72,0xD2,73,0x02,76,0x1A,77,0x03,78,0x22,80,0x50,82,0x53,
+            84,0x50,86,0x22,88,0x20,90,0x54,92,0x79,94,0x70,96,0x65,98,0x20,
+            100,0x41,140,0xC9,141,0x01,144,0x1A,145,0x03,146,0x22,148,0x50,150,0x53,
+            152,0x50,154,0x22,156,0x20,158,0x54,160,0x79,162,0x70,164,0x65,166,0x20,
+            168,0x42,208,0xCA,209,0x01,212,0x1A,213,0x03,214,0x22,216,0x50,218,0x53,
+            220,0x50,222,0x22,224,0x20,226,0x54,228,0x79,230,0x70,232,0x65,234,0x20,
+            236,0x43,276,0xCB,277,0x01,280,0x1A,281,0x03,282,0x22,284,0x50,286,0x53,
+            288,0x50,290,0x22,292,0x20,294,0x54,296,0x79,298,0x70,300,0x65,302,0x20,
+            304,0x44,344,0xCC,345,0x01,348,0x1A,349,0x03,350,0x22,352,0x50,354,0x53,
+            356,0x50,358,0x22,360,0x20,362,0x54,364,0x79,366,0x70,368,0x65,370,0x20,
+            372,0x45
+
 		};
         memset(buffer, 0, 512);
         for (i = 0; i < 178; i+=2)
@@ -395,7 +431,25 @@ void new_leaf(int leaf, char *buffer, int model)
         for (i = 0; i < 179; i+=2)
             buffer[reconstruct[i]]=reconstruct[i+1];
     }
-    else if (leaf == 0x45 && (model == 79 || model == 82 || model == 91))
+	else if (leaf == 0x43 && model == 90 )
+    {
+        int i;
+        int reconstruct[179] = {
+		0,0x55,1,0x73,2,0x74,3,0x72,4,0x53,5,0x4F,6,0x4E,7,0x59,
+        8,0x20,9,0x20,10,0x20,11,0x20,12,0x22,13,0x50,14,0x53,15,0x50,
+        16,0x22,17,0x20,18,0x4D,19,0x53,20,0x20,21,0x20,22,0x20,23,0x20,
+        24,0x20,25,0x20,26,0x20,27,0x20,28,0x31,29,0x2E,30,0x30,31,0x30,
+        32,0x22,34,0x50,36,0x53,38,0x50,40,0x22,42,0x28,44,0x50,46,0x6C,
+        48,0x61,50,0x79,52,0x53,54,0x74,56,0x61,58,0x74,60,0x69,62,0x6F,
+        64,0x6E,66,0x28,68,0x52,70,0x29,72,0x50,74,0x6F,76,0x72,78,0x74,
+        80,0x61,82,0x62,84,0x6C,86,0x65,88,0x29	
+        };
+        memset(buffer, 0, 512);
+        memset(buffer, 0xB3, 28);
+        for (i = 0; i < 179; i+=2)
+            buffer[reconstruct[i]]=reconstruct[i+1];
+    }
+    else if (leaf == 0x45 && (model == 79 || model == 82 || model == 90 || model == 91))
     {
     	unsigned int b;
 
@@ -770,6 +824,309 @@ void fix_noobz_sd(void)
     printf(" All leaves fixed!\n");
     sceKernelDelayThread(5*1000*1000);
 }
+
+void analyze_90()
+{
+    int err;
+    char buffer[512];
+    int failed = 0;
+    unsigned int b;
+
+    printf(" Checking leaf 0x0004...");
+    err = ReadKey(4, buffer);
+    if (!err)
+        err = get_leaf_id(buffer);
+    if (err == 4 || (err & 0xFFFF) == 4)
+        printf(" okay!\n");
+    else
+    {
+        failed = 1;
+        printf(" failed!");
+        if (err < 0)
+            printf(" ReadKey returned code 0x%08X.\n", err);
+        if (err == 0)
+            printf(" This leaf is clear and shouldn't be.\n");
+        if (err > 0)
+            printf(" This leaf is a copy of leaf 0x%04X.\n", err & 0xFFFF);
+    }
+
+    printf(" Checking leaf 0x0005...");
+    err = ReadKey(5, buffer);
+    if (!err)
+        err = get_leaf_id(buffer);
+    if (err == 5 || (err & 0xFFFF) == 5)
+        printf(" okay!\n");
+    else
+    {
+        failed |= 2;
+        printf(" failed!");
+        if (err < 0)
+            printf(" ReadKey returned code 0x%08X.\n", err);
+        if (err == 0)
+            printf(" This leaf is clear and shouldn't be.\n");
+        if (err > 0)
+            printf(" This leaf is a copy of leaf 0x%04X.\n", err & 0xFFFF);
+    }
+
+    printf(" Checking leaf 0x0006...");
+    err = ReadKey(6, buffer);
+    if (!err) {
+        err = get_leaf_id(buffer);
+	}
+    if (err == 6 || (err & 0xFFFF) == 6)
+        printf(" okay!\n");
+    else
+    {
+        failed |= 4;
+        printf(" failed!");
+        if (err < 0)
+            printf(" ReadKey returned code 0x%08X.\n", err);
+        if (err == 0)
+            printf(" This leaf is clear and shouldn't be.\n");
+        if (err > 0)
+            printf(" This leaf is a copy of leaf 0x%04X.\n", err & 0xFFFF);
+    }
+
+    printf(" Checking leaf 0x0041...");
+    err = ReadKey(0x41, buffer);
+    if (!err)
+        err = get_leaf_id(buffer);
+	if (err == 0x41 || (err & 0xFFFF) == 0x41)
+        printf(" okay!\n");
+    else
+    {
+        failed |= 8;
+        printf(" failed!");
+        if (err < 0x0)
+            printf(" ReadKey returned code 0x%08X.\n", err);
+        if (err == 0x0)
+            printf(" This leaf is clear and shouldn't be.\n");
+        if (err > 0x0)
+            printf(" This leaf is a copy of leaf 0x%04X.\n", err & 0xFFFF);
+    }
+
+    printf(" Checking leaf 0x0042...");
+    err = ReadKey(0x42, buffer);
+    if (!err)
+        err = get_leaf_id(buffer);
+    if (err == 0)
+        printf(" okay!\n");
+    else
+    {
+        failed |= 16;
+        printf(" failed!");
+        if (err < 0)
+            printf(" ReadKey returned code 0x%08X.\n", err);
+        else
+            printf(" This leaf is a copy of leaf 0x%04X.\n", err & 0xFFFF);
+    }
+
+    printf(" Checking leaf 0x0043...");
+    err = ReadKey(0x43, buffer);
+    if (!err) {
+        err = get_leaf_id(buffer);
+	}
+    if (err == 0x43 || (err & 0xFFFF) == 0x43)
+        printf(" okay!\n");
+    else
+    {
+        failed |= 32;
+        printf(" failed!");
+        if (err < 0)
+            printf(" ReadKey returned code 0x%08X.\n", err);
+        if (err == 0)
+            printf(" This leaf is clear and shouldn't be.\n");
+        if (err > 0)
+            printf(" This leaf is a copy of leaf 0x%04X.\n", err & 0xFFFF);
+    }
+
+    printf(" Checking leaf 0x0045...");
+    err = ReadKey(0x45, buffer);
+    if (!err)
+        err = get_leaf_id(buffer);
+    if (err == 0x45 || (err & 0xFFFF) == 0x45)
+        printf(" okay!\n");
+    else
+    {
+        failed |= 64;
+        printf(" failed!");
+        if (err < 0)
+            printf(" ReadKey returned code 0x%08X.\n", err);
+        if (err == 0)
+            printf(" This leaf is clear and shouldn't be.\n");
+        if (err > 0)
+            printf(" This leaf is a copy of leaf 0x%04X.\n", err & 0xFFFF);
+    }
+
+    printf(" Checking leaf 0x0046...");
+    err = ReadKey(0x46, buffer);
+    if (!err)
+        err = get_leaf_id(buffer);
+    if (err == 0x46 || (err & 0xFFFF) == 0x46)
+        printf(" okay!\n");
+    if (err == 0)
+        printf(" okay!\n");
+    else
+    {
+        failed |= 128;
+        printf(" failed!");
+        if (err < 0)
+            printf(" ReadKey returned code 0x%08X.\n", err);
+        else
+            printf(" This leaf is a copy of leaf 0x%04X.\n", err & 0xFFFF);
+    }
+
+    printf(" Checking leaf 0x0047...");
+    err = ReadKey(0x47, buffer);
+    if (!err)
+        err = get_leaf_id(buffer);
+    if (err == 0x47 || (err & 0xFFFF) == 0x47)
+        printf(" okay!\n");
+    else
+    {
+        failed |= 256;
+        printf(" failed!");
+        if (err < 0)
+            printf(" ReadKey returned code 0x%08X.\n", err);
+        if (err == 0)
+            printf(" This leaf is clear and shouldn't be.\n");
+        if (err > 0)
+            printf(" This leaf is a copy of leaf 0x%04X.\n", err & 0xFFFF);
+    }
+
+    if (failed)
+    {
+        if (failed == 0x100)
+            printf("\n\n Don't worry about leaf 0x47 failing. This is just an old TA-079.\n");
+        else if (failed == 0x180)
+            printf("\n\n Wow, this is a REALLY old TA-079. The leaves are fine.\n");
+        k_tbl->KernelDelayThread(5*1000*1000);
+        pspDebugScreenClear();
+        if (failed & 0x001)
+        {
+            printf("\n Your PSP appears to have a bad leaf 0x0004.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0004...");
+                new_leaf(4, buffer, 90);
+                WriteKey(4, buffer);
+                printf(" done!\n");
+            }
+        }
+        if (failed & 0x002)
+        {
+            printf("\n Your PSP appears to have a bad leaf 0x0005.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0005...");
+                new_leaf(5, buffer, 90);
+                WriteKey(5, buffer);
+                printf(" done!\n");
+            }
+        }
+        if (failed & 0x004)
+        {
+            printf("\n Your PSP appears to have a bad leaf 0x0006.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0006...");
+                new_leaf(6, buffer, 90);
+                WriteKey(6, buffer);
+                printf(" done!\n");
+            }
+        }
+		if ( failed & 0x008 )
+		{
+            printf("\n Your PSP appears to have a bad leaf 0x0041.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0041...");
+                new_leaf(0x41, buffer, 90);
+                WriteKey(0x41, buffer);
+                printf(" done!\n");
+            }
+        }
+
+        if (failed & 0x010)
+        {
+            printf("\n Your PSP appears to have a bad leaf 0x0042.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0042...");
+                new_leaf(0x42, buffer, 90);
+                WriteKey(0x42, buffer);
+                printf(" done!\n");
+            }
+        }
+        if (failed & 0x020)
+        {
+            printf("\n Your PSP appears to have a bad leaf 0x0043.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0043...");
+                new_leaf(0x43, buffer, 90);
+                WriteKey(0x43, buffer);
+                printf(" done!\n");
+            }
+        }
+		if (failed & 0x040)
+        {
+            printf("\n Your PSP appears to have a bad leaf 0x0045.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0045...");
+                new_leaf(0x45, buffer, 90);
+                WriteKey(0x45, buffer);
+                printf(" done!\n");
+            }
+        }
+
+        if (failed & 0x080)
+        {
+            printf("\n Your PSP appears to have a bad leaf 0x0046.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0046...");
+                new_leaf(0x46, buffer, 90);
+                WriteKey(0x46, buffer);
+                printf(" done!\n");
+            }
+        }
+        if (failed & 0x100)
+        {
+            printf("\n Your PSP appears to have a bad leaf 0x0047.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0047...");
+                new_leaf(0x47, buffer, 90);
+                WriteKey(0x47, buffer);
+                printf(" done!\n");
+            }
+        }
+
+        printf("\n Press any key to return to main menu.\n");
+        b = wait_pressK(0xFFFF);
+        wait_releaseK(0xFFFF);
+        return;
+    }
+    else
+        printf("\n\n Congratulations! Your leaves appear to be fine. \n");
+
+    k_tbl->KernelDelayThread(5*1000*1000);
+#if DEBUG
+    k_tbl->KernelDelayThread(5*1000*1000);
+#endif
+}
+
 
 void analyze_91()
 {
@@ -2006,6 +2363,9 @@ void analyze_leaves(void)
             case 0x0303:
             printf(" The IdStorage identifies the motherboard as a TA-085\n\n");
             break;
+            case 0x0304:
+            printf(" The IdStorage identifies the motherboard as a TA-090v2\n\n");
+            break;
             case 0x0501:
             printf(" The IdStorage identifies the motherboard as a TA-091\n\n");
             break;
@@ -2014,9 +2374,10 @@ void analyze_leaves(void)
             printf(" There may be a problem with the IdStorage on this PSP.\n\n");
         }
         printf(" Please note that all slim PSPs are currently TA-085 motherboards.\n");
-        printf("\n     O = TA-079/81, X = TA-082/86, %c = TA-085, %c = TA-091\n\n", 0xd8, 0xc8);
-        b = wait_pressK(PSP_CTRL_SQUARE|PSP_CTRL_CROSS|PSP_CTRL_CIRCLE|PSP_CTRL_TRIANGLE);
-        wait_releaseK(PSP_CTRL_SQUARE|PSP_CTRL_CROSS|PSP_CTRL_CIRCLE|PSP_CTRL_TRIANGLE);
+        printf("\n     O = TA-079/81, X = TA-082/86, %c = TA-085, %c = TA-091\n", 0xd8, 0xc8);
+        printf("\n     LEFT = TA-090\n\n");
+        b = wait_pressK(PSP_CTRL_SQUARE|PSP_CTRL_CROSS|PSP_CTRL_CIRCLE|PSP_CTRL_TRIANGLE|PSP_CTRL_LEFT);
+        wait_releaseK(PSP_CTRL_SQUARE|PSP_CTRL_CROSS|PSP_CTRL_CIRCLE|PSP_CTRL_TRIANGLE|PSP_CTRL_LEFT);
         if (b & PSP_CTRL_CIRCLE)
         {
             analyze_7981();
@@ -2037,6 +2398,12 @@ void analyze_leaves(void)
             analyze_91();
             return;
 		}
+		if (b & PSP_CTRL_LEFT)
+		{
+            analyze_90();
+            return;
+		}
+
     }
 
 }
