@@ -440,6 +440,7 @@ void new_leaf(int leaf, char *buffer, int model)
 
 int get_leaf_id(char *buffer)
 {
+	//printf("0x%08X\n", adler_32((unsigned char*)buffer, 512));
     switch (adler_32((unsigned char*)buffer, 512))
     {
         case 0xFC220D06:
@@ -467,6 +468,7 @@ int get_leaf_id(char *buffer)
         case 0xC54015F9:
         return 0x41;
         break;
+        case 0xB83B171C:
         case 0x41CB176C:
         return 0x00010041; /* leaf 0x41 for 85 */
         break;
@@ -836,11 +838,11 @@ void analyze_91()
     {
         failed |= 8;
         printf(" failed!");
-        if (err < 0)
+        if (err < 0x0)
             printf(" ReadKey returned code 0x%08X.\n", err);
-        if (err == 0)
+        if (err == 0x0)
             printf(" This leaf is clear and shouldn't be.\n");
-        if (err > 0)
+        if (err > 0x0)
             printf(" This leaf is a copy of leaf 0x%04X.\n", err & 0xFFFF);
     }
 
@@ -977,7 +979,7 @@ void analyze_91()
                 printf(" done!\n");
             }
         }
-		if ( failed & 8 )
+		if ( failed & 0x008 )
 		{
             printf("\n Your PSP appears to have a bad leaf 0x0041.\n");
             printf("\n                    O = Leave as is, X = Fix leaf\n\n");
