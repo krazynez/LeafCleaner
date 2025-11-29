@@ -447,6 +447,7 @@ int get_leaf_id(char *buffer)
         case 0x1FD3063D:
         return 4;
         break;
+        case 0x0B040A37:
         case 0x7E5309BE:
         return 0x00010004; /* leaf 4 for 85 */
         break;
@@ -479,8 +480,9 @@ int get_leaf_id(char *buffer)
         case 0xC557081D:
         return 0x43;
         break;
+        case 0xB299168F:
         case 0x5DB9110A:
-        return 0x00010043; /* leaf 0x43 for 85 */
+        return 0x00010043; /* leaf 0x43 for 85 and 91 */
         break;
         case 0x03FE0002:
         return 0x00010045; /* WLAN for PSP-1001/2 */
