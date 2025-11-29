@@ -451,7 +451,8 @@ int get_leaf_id(char *buffer)
         break;
         case 0x0B040A37:
         case 0x7E5309BE:
-        return 0x00010004; /* leaf 4 for 85 */
+        case 0xCABA0B1D:
+        return 0x00010004; /* leaf 4 for 85 and 91*/
         break;
         case 0x31D304AF:
         return 5; /* unpatched leaf 5 */
@@ -781,7 +782,7 @@ void analyze_91()
     err = ReadKey(4, buffer);
     if (!err)
         err = get_leaf_id(buffer);
-    if (err == 4)
+    if (err == 4 || (err & 0xFFFF) == 4)
         printf(" okay!\n");
     else
     {
@@ -1991,6 +1992,9 @@ void analyze_leaves(void)
     {
         pspDebugScreenClear();
         printf("\n");
+#if DEBUG
+		printf("mobover: 0x%04X\n", check_mobo());
+#endif
         switch (check_mobo())
         {
             case 0x0101:
@@ -2001,6 +2005,9 @@ void analyze_leaves(void)
             break;
             case 0x0303:
             printf(" The IdStorage identifies the motherboard as a TA-085\n\n");
+            break;
+            case 0x0501:
+            printf(" The IdStorage identifies the motherboard as a TA-091\n\n");
             break;
             default:
             printf(" The motherboard cannot be determined from the IdStorage\n");
