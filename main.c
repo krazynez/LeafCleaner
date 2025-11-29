@@ -335,6 +335,27 @@ void new_leaf(int leaf, char *buffer, int model)
             buffer[reconstruct[i]]=reconstruct[i+1];
     }
 
+	else if(leaf == 0x41 && model == 91)
+	{
+		int i;
+		int reconstruct[178] = {
+			0,0x4C,1,0x5,4,0xA,5,0x3,6,0x53,8,0x6F,10,0x6E,12,0x79,
+            68,0x5,72,0x81,73,0x3,76,0x1A,77,0x3,78,0x22,80,0x50,82,0x53,
+            84,0x50,86,0x22,88,0x20,90,0x54,92,0x79,94,0x70,96,0x65,98,0x20,
+            100,0x41,140,0xC9,141,0x1,144,0x1A,145,0x3,146,0x22,148,0x50,150,0x53,
+            152,0x50,154,0x22,156,0x20,158,0x54,160,0x79,162,0x70,164,0x65,166,0x20,
+            168,0x42,208,0xCA,209,0x1,212,0x1A,213,0x3,214,0x22,216,0x50,218,0x53,
+            220,0x50,222,0x22,224,0x20,226,0x54,228,0x79,230,0x70,232,0x65,234,0x20,
+            236,0x43,276,0xCB,277,0x1,280,0x1A,281,0x3,282,0x22,284,0x50,286,0x53,
+            288,0x50,290,0x22,292,0x20,294,0x54,296,0x79,298,0x70,300,0x65,302,0x20,
+            304,0x44,344,0xCC,345,0x1,348,0x1A,349,0x3,350,0x22,352,0x50,354,0x53,
+            356,0x50,358,0x22,360,0x20,362,0x54,364,0x79,366,0x70,368,0x65,370,0x20,
+            372,0x45
+		};
+        memset(buffer, 0, 512);
+        for (i = 0; i < 178; i+=2)
+            buffer[reconstruct[i]]=reconstruct[i+1];
+	}
     else if (leaf == 0x42)
     {
         memset(buffer, 0, 512);
@@ -956,6 +977,19 @@ void analyze_91()
                 printf(" done!\n");
             }
         }
+		if ( failed & 8 )
+		{
+            printf("\n Your PSP appears to have a bad leaf 0x0041.\n");
+            printf("\n                    O = Leave as is, X = Fix leaf\n\n");
+            if (confirm_cancel())
+            {
+                printf("\n Fixing leaf 0x0041...");
+                new_leaf(0x41, buffer, 91);
+                WriteKey(0x41, buffer);
+                printf(" done!\n");
+            }
+        }
+
         if (failed & 0x010)
         {
             printf("\n Your PSP appears to have a bad leaf 0x0042.\n");
