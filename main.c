@@ -326,7 +326,7 @@ void new_leaf(int leaf, char *buffer, int model)
         for (i = 0; i < 20; i+=2)
             buffer[reconstruct[i]]=reconstruct[i+1];
     }
-    else if (leaf == 6 && (model == 82 || model == 85 || model = 88 || model == 90 || model == 91 || model == 95))
+    else if (leaf == 6 && (model == 82 || model == 85 || model == 88 || model == 90 || model == 91 || model == 95))
     {
         int i;
         int reconstruct[28] = {
