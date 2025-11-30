@@ -506,7 +506,8 @@ int get_leaf_id(char *buffer)
         case 0x0B040A37:
         case 0x7E5309BE:
         case 0xCABA0B1D:
-        return 0x00010004; /* leaf 4 for 85 and 91*/
+        case 0x85920A76:
+        return 0x00010004; /* leaf 4 for 85, 90, and 91*/
         break;
         case 0x31D304AF:
         return 5; /* unpatched leaf 5 */
@@ -539,7 +540,7 @@ int get_leaf_id(char *buffer)
         break;
         case 0xB299168F:
         case 0x5DB9110A:
-        return 0x00010043; /* leaf 0x43 for 85 and 91 */
+        return 0x00010043; /* leaf 0x43 for 85, and 91 */
         break;
         case 0x03FE0002:
         return 0x00010045; /* WLAN for PSP-1001/2 */
@@ -554,6 +555,7 @@ int get_leaf_id(char *buffer)
         return 0x00000045; /* WLAN for PSP-1000 */
         break;
 		case 0x29E30015: 
+        case 0x2FE30018:
         return 0x45;
         break;
         case 0x1400000A:
@@ -996,10 +998,6 @@ void analyze_90()
 
     if (failed)
     {
-        if (failed == 0x100)
-            printf("\n\n Don't worry about leaf 0x47 failing. This is just an old TA-079.\n");
-        else if (failed == 0x180)
-            printf("\n\n Wow, this is a REALLY old TA-079. The leaves are fine.\n");
         k_tbl->KernelDelayThread(5*1000*1000);
         pspDebugScreenClear();
         if (failed & 0x001)
@@ -1299,10 +1297,6 @@ void analyze_91()
 
     if (failed)
     {
-        if (failed == 0x100)
-            printf("\n\n Don't worry about leaf 0x47 failing. This is just an old TA-079.\n");
-        else if (failed == 0x180)
-            printf("\n\n Wow, this is a REALLY old TA-079. The leaves are fine.\n");
         k_tbl->KernelDelayThread(5*1000*1000);
         pspDebugScreenClear();
         if (failed & 0x001)
@@ -2363,8 +2357,8 @@ void analyze_leaves(void)
             case 0x0303:
             printf(" The IdStorage identifies the motherboard as a TA-085\n\n");
             break;
-            case 0x0304:
-            printf(" The IdStorage identifies the motherboard as a TA-090v2\n\n");
+            case 0x0404:
+            printf(" The IdStorage identifies the motherboard as a TA-090\n\n");
             break;
             case 0x0501:
             printf(" The IdStorage identifies the motherboard as a TA-091\n\n");
