@@ -7,7 +7,7 @@
 * Copy/Merge `PSP` folder from zip to root of the memory stick
 * Run
     * analyze the leaves to check if they are correct
-    * Dump leaves to `ms0:/leaves`, if that directory exisit it will rename it to leave_0001 etc...
+    * Dump leaves to `ms0:/leaves`, if that directory exisit it will rename older leaves directory to leave_0001 etc...
 
 
 ## Credits
