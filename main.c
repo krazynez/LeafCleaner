@@ -16,7 +16,7 @@
 
 
 #define VERS    2
-#define REVS    1
+#define REVS    2
 
 
 PSP_MODULE_INFO("LeafCleaner", 0, VERS, REVS);
@@ -545,6 +545,7 @@ int get_leaf_id(char *buffer)
         case 0x09FE0005:
         return 0x00000045; /* WLAN for PSP-1000 */
         break;
+		case 0x2DE30017: 
 		case 0x29E30015: 
         case 0x2FE30018:
         return 0x45;
@@ -2652,6 +2653,9 @@ void analyze_leaves(void)
             case 0x0701:
             printf(" The IdStorage identifies the motherboard as a TA-094\n\n");
             break;
+            case 0x0909:
+            printf(" The IdStorage identifies the motherboard as a TA-096/97\n\n");
+            break;
             default:
             printf(" The motherboard cannot be determined from the IdStorage\n");
             printf(" There may be a problem with the IdStorage on this PSP.\n\n");
@@ -2692,6 +2696,12 @@ void analyze_leaves(void)
             analyze_95();
             return;
 		}
+		/*if (b & PSP_CTRL_CROSS && check_mobo() == 0x909)
+		{
+            analyze_9697();
+            return;
+		}
+		*/
 		if (b & PSP_CTRL_CIRCLE)
 		{
             return;
